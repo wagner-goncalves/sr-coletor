@@ -1,0 +1,37 @@
+<div class="container">
+    <button class="btn btn-default pull-right animated fadeIn"><i class="fa fa-refresh fa-spin"></i></button>
+    <h1>Gráficos</h1>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>Último usuário cadastrado</h2>
+        </div>
+        <div class="panel-body">
+            <p> <strong>{{vm.mapLastUser.nome}}</strong> <br />
+               {{vm.mapLastUser.email}}<br />
+                {{vm.mapLastUser.dataHoraCriaca}} <br />
+                {{vm.mapLastUser.as}} <br />
+                IP {{vm.mapLastUser.query}}
+            </p>
+            <ng-map zoom="16" center="{{vm.mapLastUser.lat}}, {{vm.mapLastUser.lon}}">
+                <marker position="{{vm.mapLastUser.lat}}, {{vm.mapLastUser.lon}}" title="vm.mapLastUser.nome"></marker>
+            </ng-map>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>Uso do APP</h2>
+        </div>
+        <div class="panel-body">
+            <div id="mapAppUseLocation" style="height: 300px; width: 100%"> </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>Políticos mais curtidos</h2>
+        </div>
+        <div class="panel-body">
+            <canvas id="bar" height="80" class="chart chart-bar" chart-data="vm.graphTopLike.data" chart-labels="vm.graphTopLike.labels"></canvas>
+        </div>
+    </div>
+</div>

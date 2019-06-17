@@ -1,0 +1,328 @@
+<div class="container">
+    <button ng-if="!vm.pageInfo.execucao.running" ng-click="vm.iniciaProcessamento()" class="btn btn-primary pull-right"><i class="fa fa-refresh fa-bolt"></i> Iniciar execução</button>
+    <button ng-if="vm.pageInfo.execucao.running" ng-click="vm.cancelaProcessamento()" class="btn btn-default pull-right animated fadeIn"><i class="fa fa-refresh fa-spin"></i> Cancelar execução</button>
+    <h1>Câmara dos Deputados</h1>
+    <h2>Parâmetros</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="5%">Dados</th>
+                    <th width="10%">Intervalo</th>
+                    <th width="5%">&nbsp;</th>                
+                    <th width="10%">Parâmetros</th>
+                    <th width="70%"=>Próxima execução</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th nowrap>Partidos</th>
+                    <td><input ng-readonly="vm.execInfo.partidos.running" name="partidos" type="text" class="form-control text-right input-sm" id="partidos" ng-model="vm.execInfo.partidos.tempo"></td>
+                    <td nowrap>
+                        <i class="fa fa-info-circle" ng-init="detailPartidos = true" ng-click="detailPartidos = !detailPartidos"></i>&nbsp;
+                        <i class="fa fa-refresh fa-spin" ng-if="vm.execInfo.partidos.running"></i>
+                        <i class="fa fa-bolt" ng-if="!vm.execInfo.partidos.running" ng-click="vm.execInfo.partidos.running = true; vm.downloadPartidos()"></i>
+                    </td>
+                    <td></td>
+                    <td>
+                        <span ng-if="vm.pageInfo.execucao.running && !vm.execInfo.partidos.running" am-time-ago="{{vm.execInfo.partidos.ultimaExecucao | amAdd : vm.execInfo.partidos.tempo : 'minute'}}"></span>
+                        <span ng-if="vm.execInfo.partidos.running">Em execução...</span>
+
+                        <div uib-collapse="detailPartidos" class="animated fadeIn small">
+                            <ul>
+                                <li>GET /public/download/partidos</li>
+                                <li>Parâmetros: nenhum</li>
+                                <li>GET /public/processa/partidos</li>
+                                <li>Parâmetros: nenhum</li>
+                            </ul>
+                        </div></td>
+                </tr>        
+                <tr>
+                    <th nowrap>Deputados</th>
+                    <td><input ng-readonly="vm.execInfo.deputados.running" name="deputados" type="text" class="form-control text-right input-sm" id="deputados" ng-model="vm.execInfo.deputados.tempo"></td>
+                    <td nowrap>
+                        <i class="fa fa-info-circle" ng-init="detailDeputados = true" ng-click="detailDeputados = !detailDeputados"></i>&nbsp;
+                        <i class="fa fa-refresh fa-spin" ng-if="vm.execInfo.deputados.running"></i>
+                        <i class="fa fa-bolt" ng-if="!vm.execInfo.deputados.running" ng-click="vm.execInfo.deputados.running = true; vm.downloadDeputados()"></i>
+                    </td>
+                    <td></td>
+                    <td>
+                        <span ng-if="vm.pageInfo.execucao.running && !vm.execInfo.deputados.running" am-time-ago="{{vm.execInfo.deputados.ultimaExecucao | amAdd : vm.execInfo.deputados.tempo : 'minute'}}"></span>
+                        <span ng-if="vm.execInfo.deputados.running">Em execução...</span>
+
+                        <div uib-collapse="detailDeputados" class="animated fadeIn small">
+                            <ul>
+                                <li>GET /public/download/deputados</li>
+                                <li>Parâmetros: nenhum </li>
+                                <li>GET /public/processa/deputados</li>
+                                <li>Parâmetros: nenhum</li>
+                            </ul>
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <th nowrap>Lista de Presenças</th>
+                    <td><input ng-readonly="vm.execInfo.presenca.running" name="presenca" type="text" class="form-control text-right input-sm" id="presenca" ng-model="vm.execInfo.presenca.tempo"></td>
+                    <td nowrap>
+                        <i class="fa fa-info-circle" ng-init="detailPresenca = true" ng-click="detailPresenca = !detailPresenca"></i>&nbsp;
+                        <i class="fa fa-refresh fa-spin" ng-if="vm.execInfo.presenca.running"></i>
+                        <i class="fa fa-bolt" ng-if="!vm.execInfo.presenca.running" ng-click="vm.execInfo.presenca.running = true; vm.iniciaPresenca()"></i>
+                    </td>
+                    <td nowrap>
+                        <form class="form-inline ">
+                          <div class="form-group">
+                            <input placeholder="Data inicial" ng-readonly="vm.execInfo.presenca.running" name="presencaDataInicial" type="text" class="form-control text-right input-sm" id="presencaDataInicial" ng-model="vm.execInfo.presenca.dataInicial">
+                          </div>
+                          <div class="form-group">
+                            <input placeholder="Data final" ng-readonly="vm.execInfo.presenca.running" name="presencaDataFinal" type="text" class="form-control text-right input-sm" id="presencaDataFinal" ng-model="vm.execInfo.presenca.dataFinal">                
+                          </div>
+                        </form>
+                    </td>
+                    <td>
+                        <span ng-if="vm.pageInfo.execucao.running && !vm.execInfo.presenca.running" am-time-ago="{{vm.execInfo.presenca.ultimaExecucao | amAdd : vm.execInfo.presenca.tempo : 'minute'}}"></span>
+                        <span ng-if="vm.execInfo.presenca.running">Em execução...</span>
+
+                        <div uib-collapse="detailPresenca" class="animated fadeIn small">
+                            <ul>
+                                <li>GET /public  /download/presencas?dataInicial=01/06/2016&amp;dataFinal=29/06/2016</li>
+                                <li>Periodicidade: diário </li>
+                                <li>PARÂMETROS</li>
+                            </ul>
+                            <table cellspacing="0" cellpadding="4" class="table table-bordered">
+                                <tr>
+                                    <td>dataInicial</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                                <tr>
+                                    <td>dataFinal</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                            </table>
+                            <ul>
+                                <li>GET /public /processa/presencas?dataInicial=01/06/2016&amp;dataFinal=29/06/2016</li>
+                                <li>Periodicidade: diário </li>
+                                <li>PARÂMETROS</li>
+                            </ul>
+                            <table border="1" cellspacing="0" cellpadding="4" class="table table-bordered">
+                                <tr>
+                                    <td>dataInicial</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                                <tr>
+                                    <td>dataFinal</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                            </table>
+                        </div></td>
+                </tr>
+                <tr>
+                    <th nowrap>Lista de proposições votadas em plenário</th>
+                    <td><input ng-readonly="vm.execInfo.proposicoes.running" name="proposicoes" type="text" class="form-control text-right input-sm" id="proposicoes" ng-model="vm.execInfo.proposicoes.tempo"></td>
+                    <td nowrap>
+                        <i class="fa fa-info-circle" ng-init="detailProposicoes = true" ng-click="detailProposicoes = !detailProposicoes"></i>&nbsp;
+                        <i class="fa fa-refresh fa-spin" ng-if="vm.execInfo.proposicoes.running"></i>
+                        <i class="fa fa-bolt" ng-if="!vm.execInfo.proposicoes.running" ng-click="vm.execInfo.proposicoes.running = true; vm.downloadProposicoes()"></i>
+                    </td>
+                    <td>
+                        <form class="form-inline">
+                          <div class="form-group">
+                            <input placeholder="Ano inicial" ng-readonly="vm.execInfo.proposicoes.running" name="proposicoesAnoInicial" type="text" class="form-control text-right input-sm" id="proposicoesAnoInicial" ng-model="vm.execInfo.proposicoes.anoInicial">
+                          </div>
+                          <div class="form-group">
+                            <input placeholder="Ano final" ng-readonly="vm.execInfo.proposicoes.running" name="proposicoesAnoFinal" type="text" class="form-control text-right input-sm" id="proposicoesAnoFinal" ng-model="vm.execInfo.proposicoes.anoFinal">                
+                          </div>
+                        </form>
+                    </td>
+                    <td>
+                        <span ng-if="vm.pageInfo.execucao.running && !vm.execInfo.proposicoes.running" am-time-ago="{{vm.execInfo.proposicoes.ultimaExecucao | amAdd : vm.execInfo.proposicoes.tempo : 'minute'}}"></span>
+                        <span ng-if="vm.execInfo.proposicoes.running">Em execução...</span>
+
+                        <div uib-collapse="detailProposicoes" class="animated fadeIn small">
+                            <ul>
+                                <li>GET /public/dowload/proposicoes/votadas?anoInicial=2016&amp;anoFinal=2016</li>
+                                <li>Periodicidade: diário </li>
+                                <li>PARÂMETROS</li>
+                            </ul>
+                            <table border="1" cellspacing="0" cellpadding="4" class="table table-bordered">
+                                <tr>
+                                    <td>anoInicial</td>
+                                    <td>INT (yyyy)</td>
+                                </tr>
+                                <tr>
+                                    <td>anoFinal</td>
+                                    <td>INT (yyyy)</td>
+                                </tr>
+                            </table>
+                            <ul>
+                                <li>GET /public /processa/proposicoes/votadas?anoInicial=2016&amp;anoFinal=2016</li>
+                                <li>Periodicidade: diário </li>
+                                <li>PARÂMETROS</li>
+                            </ul>
+                            <table border="1" cellspacing="0" cellpadding="4" class="table table-bordered">
+                                <tr>
+                                    <td>anoInicial</td>
+                                    <td>INT (yyyy)</td>
+                                </tr>
+                                <tr>
+                                    <td>anoFinal</td>
+                                    <td>INT (yyyy)</td>
+                                </tr>
+                            </table>
+                        </div></td>
+                </tr>
+                <tr>
+                    <th nowrap>Detalhes de proposições votadas em plenário</th>
+                    <td><input ng-readonly="vm.execInfo.detalhesProposicoes.running" name="detalhesProposicoes" type="text" class="form-control text-right input-sm" id="detalhesProposicoes" ng-model="vm.execInfo.detalhesProposicoes.tempo"></td>
+                    <td nowrap>
+                        <i class="fa fa-info-circle" ng-init="detailDetalhesProposicoes = true" ng-click="detailDetalhesProposicoes = !detailDetalhesProposicoes"></i>&nbsp;
+                        <i class="fa fa-refresh fa-spin" ng-if="vm.execInfo.detalhesProposicoes.running"></i>
+                        <i class="fa fa-bolt" ng-if="!vm.execInfo.detalhesProposicoes.running" ng-click="vm.execInfo.detalhesProposicoes.running = true; vm.downloadDetalhesProposicoes()"></i>
+                    </td>
+                    <td>
+                        <form class="form-inline">
+                          <div class="form-group">
+                            <input placeholder="Data inicial" ng-readonly="vm.execInfo.detalhesProposicoes.running" name="detalhesProposicoesDataInicial" type="text" class="form-control text-right input-sm" id="detalhesProposicoesDataInicial" ng-model="vm.execInfo.detalhesProposicoes.dataInicial">
+                          </div>
+                          <div class="form-group">
+                            <input placeholder="Data final" ng-readonly="vm.execInfo.detalhesProposicoes.running" name="detalhesProposicoesDataFinal" type="text" class="form-control text-right input-sm" id="detalhesProposicoesDataFinal" ng-model="vm.execInfo.detalhesProposicoes.dataFinal">                
+                          </div>
+                        </form>
+                    </td>
+                    <td>
+                        <span ng-if="vm.pageInfo.execucao.running && !vm.execInfo.detalhesProposicoes.running" am-time-ago="{{vm.execInfo.detalhesProposicoes.ultimaExecucao | amAdd : vm.execInfo.detalhesProposicoes.tempo : 'minute'}}"></span>
+                        <span ng-if="vm.execInfo.detalhesProposicoes.running">Em execução...</span>
+
+                        <div uib-collapse="detailDetalhesProposicoes" class="animated fadeIn small">
+                            <ul>
+                                <li>GET /public/download/proposicoes?dataInicial=01/06/2016&amp;dataFinal=29/06/2016</li>
+                                <li>Periodicidade: diário </li>
+                                <li>PARÂMETROS</li>
+                            </ul>
+                            <table border="1" cellspacing="0" cellpadding="4" class="table table-bordered">
+                                <tr>
+                                    <td>dataInicial</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                                <tr>
+                                    <td>dataFinal</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                            </table>
+                            <ul>
+                                <li>GET /public/processa/proposicoes?dataInicial=01/06/2016&amp;dataFinal=29/06/2016</li>
+                                <li>Periodicidade: diário </li>
+                                <li>PARÂMETROS</li>
+                            </ul>
+                            <table border="1" cellspacing="0" cellpadding="4" class="table table-bordered">
+                                <tr>
+                                    <td>dataInicial</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                                <tr>
+                                    <td>dataFinal</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                            </table>
+                        </div></td>
+                </tr>
+                <tr>
+                    <th nowrap>Votos de proposições</th>
+                    <td><input ng-readonly="vm.execInfo.votos.running" name="votos" type="text" class="form-control text-right input-sm" id="votos" ng-model="vm.execInfo.votos.tempo"></td>
+                    <td nowrap>
+                        <i class="fa fa-info-circle" ng-init="detailVotos = true" ng-click="detailVotos = !detailVotos"></i>&nbsp;
+                        <i class="fa fa-refresh fa-spin" ng-if="vm.execInfo.votos.running"></i>
+                        <i class="fa fa-bolt" ng-if="!vm.execInfo.votos.running" ng-click="vm.execInfo.votos.running = true; vm.downloadVotos()"></i>
+                    </td>
+                    <td>
+                        <form class="form-inline">
+                          <div class="form-group">
+                            <input placeholder="Data inicial" ng-readonly="vm.execInfo.votos.running" name="votosDataInicial" type="text" class="form-control text-right input-sm" id="votosDataInicial" ng-model="vm.execInfo.votos.dataInicial">
+                          </div>
+                          <div class="form-group">
+                            <input placeholder="Data final" ng-readonly="vm.execInfo.votos.running" name="votosDataFinal" type="text" class="form-control text-right input-sm" id="votosDataFinal" ng-model="vm.execInfo.votos.dataFinal">                
+                          </div>
+                        </form>
+                    </td>
+                    <td>
+                        <span ng-if="vm.pageInfo.execucao.running && !vm.execInfo.votos.running" am-time-ago="{{vm.execInfo.votos.ultimaExecucao | amAdd : vm.execInfo.votos.tempo : 'minute'}}"></span>
+                        <span ng-if="vm.execInfo.votos.running">Em execução...</span>
+
+                        <div uib-collapse="detailVotos" class="animated fadeIn small">
+                            <ul>
+                                <li>GET /public/download/proposicoes/votacoes?dataInicial=01/10/2016&amp;dataFinal=27/10/2016</li>
+                                <li>Periodicidade: diário </li>
+                                <li>PARÂMETROS</li>
+                            </ul>
+                            <table border="1" cellspacing="0" cellpadding="4" class="table table-bordered">
+                                <tr>
+                                    <td>dataInicial</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                                <tr>
+                                    <td>dataFinal</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                            </table>
+                            <ul>
+                                <li>GET /public/processa/proposicoes/votacoes?dataInicial=01/10/2016&amp;dataFinal=27/10/2016</li>
+                                <li>Periodicidade: diário </li>
+                                <li>PARÂMETROS</li>
+                            </ul>
+                            <table border="1" cellspacing="0" cellpadding="4" class="table table-bordered">
+                                <tr>
+                                    <td>dataInicial</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                                <tr>
+                                    <td>dataFinal</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                            </table>
+                        </div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+   
+    <h2>Histórico</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2">Processamento</th>
+                    <th>Tipo</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                    <th>Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.itensLog" class="animated fadeInDown small" ng-class="{'success' : item.flgSucesso == 1, 'danger' : item.flgSucesso == 0}">
+                    <td>
+                        <i ng-if="item.flgSucesso == 1" class="fa fa-check-circle"></i>
+                        <i ng-if="item.flgSucesso == 0" class="fa fa-exclamation-circle"></i>
+                    </td>
+                    <td>{{item.codProcessamento}}</td>
+                    <td>
+                        <p ng-if="item.flgTipoProcessamento == 0">Download</p>
+                        <p ng-if="item.flgTipoProcessamento == 1">Processamento</p>
+                        <p ng-if="item.flgTipoProcessamento == 2">Notificação</p>
+                    </td>
+                    <td>{{item.dataHoraInicio | amDateFormat: 'DD/MM/YYYY HH:mm:ss'}}</td>
+                    <td>{{item.dataHoraFim | amDateFormat: 'DD/MM/YYYY HH:mm:ss'}}</td>
+                    <td>{{item.mensagem}}
+                        <p ng-if="item.flgSucesso == 1" ng-repeat="arquivo in item.arquivos">
+                            <a target="_blank" ng-href="{{arquivo.caminhoRelativo}}">{{arquivo.caminhoRelativo}}</a>
+                        </p>
+                        <p ng-if="item.flgSucesso == 0" ng-repeat="arquivo in item.arquivos">
+                            {{arquivo.caminhoRelativo}}
+                        </p>                    
+                    </td>
+                </tr>             
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<siglas>
+  <TipoAutor id="TipoOrgao_1" descricao="Comissão Diretora" />
+  <TipoAutor id="TipoOrgao_10" descricao="Grupo de Trabalho" />
+  <TipoAutor id="TipoOrgao_1000" descricao="Importação das proposições inativas" />
+  <TipoAutor id="TipoOrgao_11" descricao="Conselho" />
+  <TipoAutor id="TipoOrgao_110" descricao="Comissão da Câmara dos Deputados" />
+  <TipoAutor id="TipoOrgao_12" descricao="Procuradoria Parlamentar" />
+  <TipoAutor id="TipoOrgao_12000" descricao="Órgão da Câmara dos Deputados" />
+  <TipoAutor id="TipoOrgao_13" descricao="Corregedoria" />
+  <TipoAutor id="TipoOrgao_13000" descricao="Comissão Temporária da CD" />
+  <TipoAutor id="TipoOrgao_14" descricao="Ouvidoria" />
+  <TipoAutor id="TipoOrgao_15" descricao="COORDENADORIA DA MULHER" />
+  <TipoAutor id="TipoOrgao_2" descricao="Comissão Permanente" />
+  <TipoAutor id="TipoOrgao_20" descricao="Comissão Parlamentar Mista de Inquérito" />
+  <TipoAutor id="TipoOrgao_21" descricao="Comissão Mista Especial" />
+  <TipoAutor id="TipoOrgao_21000" descricao="Comissão do Senado Federal" />
+  <TipoAutor id="TipoOrgao_22" descricao="Conferência" />
+  <TipoAutor id="TipoOrgao_22000" descricao="Órgão do Senado Federal" />
+  <TipoAutor id="TipoOrgao_25" descricao="Subcomissão" />
+  <TipoAutor id="TipoOrgao_3" descricao="Comissão Especial" />
+  <TipoAutor id="TipoOrgao_30000" descricao="Órgão do Poder Executivo" />
+  <TipoAutor id="TipoOrgao_4" descricao="Comissão Parlamentar de Inquérito" />
+  <TipoAutor id="TipoOrgao_40000" descricao="Órgão do Poder Legislativo" />
+  <TipoAutor id="TipoOrgao_5" descricao="Comissão Externa" />
+  <TipoAutor id="TipoOrgao_50000" descricao="Órgão do Poder Judiciário" />
+  <TipoAutor id="TipoOrgao_6" descricao="Comissão Mista Permanente" />
+  <TipoAutor id="TipoOrgao_7" descricao="Comissão de Sindicância" />
+  <TipoAutor id="TipoOrgao_70000" descricao="Sociedade Civil" />
+  <TipoAutor id="TipoOrgao_8" descricao="Comissão Representativa do CN" />
+  <TipoAutor id="TipoOrgao_80000" descricao="Liderança" />
+  <TipoAutor id="TipoOrgao_81000" descricao="Bancada" />
+  <TipoAutor id="TipoOrgao_81001" descricao="Órgão do Congresso Nacional" />
+  <TipoAutor id="TipoOrgao_81002" descricao="Comissão Mista" />
+  <TipoAutor id="TipoOrgao_81003" descricao="Comissão Permanente do Senado Federal" />
+  <TipoAutor id="TipoOrgao_81004" descricao="Comissão Temporária do Senado Federal" />
+  <TipoAutor id="TipoOrgao_81005" descricao="Gabinete Parlamentar" />
+  <TipoAutor id="TipoOrgao_81006" descricao="Órgão Remessa Requerimento de Informação" />
+  <TipoAutor id="TipoOrgao_81007" descricao="MPU - Ministério Público da União" />
+  <TipoAutor id="TipoOrgao_81008" descricao="DPU - Defensoria Pública da União" />
+  <TipoAutor id="TipoOrgao_81009" descricao="Partido Político" />
+  <TipoAutor id="TipoOrgao_9" descricao="Comissão Medida Provisória" />
+  <TipoAutor id="TipoOrgao_9000" descricao="LIDERANÇA DO PMDB" />
+  <TipoAutor id="TipoParlamentar_10000" descricao="Deputado  " />
+  <TipoAutor id="TipoParlamentar_20000" descricao="Senador   " />
+</siglas>

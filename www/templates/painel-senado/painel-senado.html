@@ -1,0 +1,181 @@
+<div class="container">
+    <h1>Senado</h1>
+    <h2>Parâmetros</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="5%">Dados</th>
+                    <th width="10%">Cód. Atual</th>
+                    <th width="5%">&nbsp;</th>
+                    <th width="10%">Parâmetros</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                  <th nowrap>Cód. Processamento</th>
+                  <td><input name="codProcess" type="text" class=" text-right input-sm" id="codProcess" ng-model="codProcessamento" ></td><!--ng-model=""vm.execInfo.partidos.tempo-->
+                  <td nowrap>
+                      <i class="fa fa-info-circle" ng-init="cdProcess = true" ng-click="cdProcess = !cdProcess"></i>&nbsp;
+                      <i class="fa fa-bolt"  ng-click="vm.criaCodigoProcessamentoSenado()"></i><!--ng-if="!vm.execInfo.deputados.running" vm.execInfo.deputados.running = true; -->
+                  </td>
+                  <td>
+                      <div uib-collapse="cdProcess" class="animated fadeIn small">
+                          <ul>
+                              <li>GET processamentos/senado/codigo</li>
+                              <li>Parâmetros: nenhum </li>
+                          </ul>
+                      </div>
+
+                  </td>
+              </tr>
+                <tr>
+                    <th nowrap>Senadores</th>
+                    <td><input ng-disabled="senadores == senadores" name="senadores" type="text" class="text-right input-sm" id="senadores" ng-model="codProcessamento"></td>
+                    <td nowrap>
+                        <i class="fa fa-info-circle" ng-init="detailDeputados = true" ng-click="detailDeputados = !detailDeputados"></i>&nbsp;
+                        <i class="fa fa-refresh fa-spin" ng-if="vm.execInfo.senadores.running"></i>
+                        <i class="fa fa-bolt" ng-if="!vm.execInfo.senadores.running && codProcessamento != ''" ng-click="vm.execInfo.senadores.running = true; vm.downloadSenadores()"></i>
+                    </td>
+                    <td>
+                        <span ng-if="vm.pageInfo.execucao.running && !vm.execInfo.senadores.running" am-time-ago="{{vm.execInfo.senadores.ultimaExecucao | amAdd : vm.execInfo.senadores.tempo : 'minute'}}"></span>
+                        <span ng-if="vm.execInfo.senadores.running">Em execução...</span>
+
+                        <div uib-collapse="detailDeputados" class="animated fadeIn small">
+                            <ul>
+                                <li>GET /public/v1/senado/download/senadores?codProcessamento=?</li>
+                                <li>Parâmetros: codProcessamento </li>
+                                <li>GET /public/v1/senado/processa/senadores?codProcessamento=?</li>
+                                <li>Parâmetros: codProcessamento</li>
+                            </ul>
+                        </div>
+                        <td></td>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th nowrap>Materias</th>
+                    <td><input ng-disabled="materias == materias" name="materias" type="text" class="text-right input-sm" id="materias" ng-model="codProcessamento"></td>
+                    <td nowrap>
+                        <i class="fa fa-info-circle" ng-init="detailMaterias = true" ng-click="detailMaterias = !detailMaterias"></i>&nbsp;
+                        <i class="fa fa-refresh fa-spin" ng-if="vm.execInfo.materias.running"></i>
+                        <i class="fa fa-bolt" ng-if="!vm.execInfo.materias.running && codProcessamento != ''" ng-click="vm.execInfo.materias.running = true; vm.downloadMaterias()"></i>
+                    </td>
+                    <td nowrap>
+                        <form class="form-inline ">
+                          <div class="form-group">
+                            <input placeholder="Data inicial" ng-readonly="vm.execInfo.materias.running" name="MateriasDataInicial" type="text" class="text-right input-sm" id="MateriasDataInicial"  ng-model="vm.execInfo.materias.dataInicial">
+                          </div>
+                        </form>
+                    </td>
+                    <td>
+                        <span ng-if="vm.pageInfo.execucao.running && !vm.execInfo.materias.running" am-time-ago="{{vm.execInfo.materias.ultimaExecucao | amAdd : vm.execInfo.materias.tempo : 'minute'}}"></span>
+                        <span ng-if="vm.execInfo.materias.running">Em execução...</span>
+
+                        <div uib-collapse="detailMaterias" class="animated fadeIn small">
+                            <ul>
+                                <li>GET /public/v1/senado/download/materias?codProcessamento=?&tramitando=N&data=?</li>
+                                <li>GET /public/v1/senado/processa/materias?codProcessamento=?</li>
+                                <li>Periodicidade: diário </li>
+                                <li>PARÂMETROS</li>
+                            </ul>
+                            <table cellspacing="0" cellpadding="4" class="table table-bordered">
+                                <tr>
+                                    <td>dataInicial</td>
+                                    <td>DATA (dd/mm/yyyy)</td>
+                                </tr>
+                                <tr>
+                                    <td>codProcessamento</td>
+                                    <td>código do processamento atual</td>
+                                </tr>
+                            </table>
+                        </div></td>
+                </tr>
+                <tr>
+                    <th nowrap>Detalhes da Materia</th>
+                    <td><input ng-disabled="detMateria == detMateria" name="detMateria" type="text" class="text-right input-sm" id="detMateria" ng-model="codProcessamento"></td>
+                    <td nowrap>
+                        <i class="fa fa-info-circle" ng-init="detailDetMateria = true" ng-click="detailDetMateria = !detailDetMateria"></i>&nbsp;
+                        <i class="fa fa-refresh fa-spin" ng-if="vm.execInfo.detMateria.running"></i>
+                        <i class="fa fa-bolt" ng-if="!vm.execInfo.detMateria.running && codProcessamento != ''" ng-click="vm.execInfo.detMateria.running = true; vm.downloadDetMateria()"></i>
+                    </td>
+                    <td>
+                        <span ng-if="vm.pageInfo.execucao.running && !vm.execInfo.detMateria.running" am-time-ago="{{vm.execInfo.detMateria.ultimaExecucao | amAdd : vm.execInfo.detMateria.tempo : 'minute'}}"></span>
+                        <span ng-if="vm.execInfo.detMateria.running">Em execução...</span>
+
+                        <div uib-collapse="detailDetMateria" class="animated fadeIn small">
+                            <ul>
+                                <li>GET /public/v1/senado/download/materia/download?codProcessamento=?</li>
+                                <li>GET /public/v1/senado/processa/materia/processa?codProcessamento=?</li>
+                                <li>Periodicidade: Mensalmente </li>
+                                <li>Parâmetros: codProcessamento</li>
+                            </ul>
+                        </div></td>
+                        <td></td>
+                </tr>
+                <tr>
+                    <th nowrap>Votações</th>
+                    <td><input ng-disabled="votacoes == votacoes" name="votacoes" type="text" class="text-right input-sm" id="votacoes" ng-model="codProcessamento"></td>
+                    <td nowrap>
+                        <i class="fa fa-info-circle" ng-init="votacoes = true" ng-click="votacoes = !votacoes"></i>&nbsp;
+                        <i class="fa fa-refresh fa-spin" ng-if="vm.execInfo.votacoes.running"></i>
+                        <i class="fa fa-bolt" ng-if="!vm.execInfo.votacoes.running && codProcessamento != ''" ng-click="vm.execInfo.votacoes.running = true; vm.downloadVotacoes()"></i>
+                    </td>
+                    <td></td>
+                    <td>
+                        <div uib-collapse="votacoes" class="animated fadeIn small">
+                            <ul>
+                                <li>GET /public/v1/senado/download/materia/votacao?codProcessamento=?</li>
+                                <li>GET /public/v1/senado/processa/materia/votacao?codProcessamento=?</li>
+                                <li>Periodicidade: diário </li>
+                                <li>Parâmetros: codProcessamento</li>
+                            </ul>
+                        </div></td>
+                </tr>
+
+            </tbody>
+            <td></td>
+        </table>
+    </div>
+
+    <h2>Histórico</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2">Processamento</th>
+                    <th>Tipo</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                    <th>Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.itensLog" class="animated fadeInDown small" ng-class="{'success' : item.flgSucesso == 1, 'danger' : item.flgSucesso == 0}">
+                    <td>
+                        <i ng-if="item.flgSucesso == 1" class="fa fa-check-circle"></i>
+                        <i ng-if="item.flgSucesso == 0" class="fa fa-exclamation-circle"></i>
+                    </td>
+                    <td>{{item.codProcessamento}}</td>
+                    <td>
+                        <p ng-if="item.flgTipoProcessamento == 0">Download</p>
+                        <p ng-if="item.flgTipoProcessamento == 1">Processamento</p>
+                        <p ng-if="item.flgTipoProcessamento == 2">Notificação</p>
+                    </td>
+                    <td>{{item.dataHoraInicio | amDateFormat: 'DD/MM/YYYY HH:mm:ss'}}</td>
+                    <td>{{item.dataHoraFim | amDateFormat: 'DD/MM/YYYY HH:mm:ss'}}</td>
+                    <td>{{item.mensagem}}
+                        <p ng-if="item.flgSucesso == 1" ng-repeat="arquivo in item.arquivos">
+                            <a target="_blank" ng-href="{{arquivo.caminhoRelativo}}">{{arquivo.caminhoRelativo}}</a>
+                        </p>
+                        <p ng-if="item.flgSucesso == 0" ng-repeat="arquivo in item.arquivos">
+                            {{arquivo.caminhoRelativo}}
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

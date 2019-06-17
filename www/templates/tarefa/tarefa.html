@@ -1,0 +1,51 @@
+<div class="container">
+    <button ng-if="!vm.pageInfo.execucao.running" ng-click="vm.iniciaProcessamento()" class="btn btn-primary pull-right"><i class="fa fa-refresh fa-bolt"></i> Iniciar execução</button>
+    <button ng-if="vm.pageInfo.execucao.running" ng-click="vm.cancelaProcessamento()" class="btn btn-default pull-right animated fadeIn"><i class="fa fa-refresh fa-spin"></i> Cancelar execução</button>
+    <h1>Câmara dos Deputados</h1>
+    <h2>Tarefas Agendadas</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="50%">Tarefa</th>
+                    <th width="10%">Intervalo (seg)</th>
+                    <th width="30%">&nbsp;</th>                
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="tarefa in vm.tarefas">
+                    <th nowrap>
+                        <p>{{tarefa.nome}}</p>
+                        <p class="small">{{tarefa.url}}</p></th>
+                    <td><input name="intervalo" type="text" class="form-control text-right input-sm" id="intervalo" ng-model="tarefa.intervalo"></td>
+                    <td nowrap>
+                        <i class="fa fa-refresh fa-spin" ng-if="tarefa.running"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Histórico</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Tarefa</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                    <th>Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.itensLog" class="animated fadeInDown small success">
+                    <td>{{item.oidTarefa}}</td>
+                    <td>{{item.dataHoraInicio | amDateFormat: 'DD/MM/YYYY HH:mm:ss'}}</td>
+                    <td>{{item.dataHoraFim | amDateFormat: 'DD/MM/YYYY HH:mm:ss'}}</td>
+                    <td>{{item.resposta}}</td>
+                </tr>             
+            </tbody>
+        </table>
+    </div>
+</div>

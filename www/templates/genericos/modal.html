@@ -1,0 +1,9 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{modalTitle}}</h3>
+</div>
+<div class="modal-body" ng-class="{'alert alert-danger' : modalError}">
+    {{modalBody}}
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="closeModal()">Fechar</button>
+</div>
